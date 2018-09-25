@@ -1,6 +1,7 @@
 import React from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import './Mapper.css'
+import data from '../data/ukcitiesgeojson.json'
 
 class Mapper extends React.Component {
   state = {
@@ -23,9 +24,25 @@ class Mapper extends React.Component {
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
+        <GeoJSON mouseOver={this.highlightFeature} data={data} onClick={this.props.city} />
       </Map>
     )
+
+    
+    
   }
+  highlightFeature =  (e) => {
+      console.log(e.target)
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+    
+}
 }
 
 export default Mapper
